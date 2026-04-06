@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "InterviewAssist — Real-Time AI Coaching for Live Technical Interviews",
+  title: "InterviewAssist — Real-Time AI Help During Your Technical Interview",
   description:
-    "InterviewAssist listens to your interviewer and gives you precise coding guidance in under 5 seconds. Undetectable. Interview-tuned. Built for developers who are ready to level up their salary.",
+    "InterviewAssist listens to your interviewer and gives you precise coding answers in under 5 seconds. Undetectable. Interview-tuned. Free to practice, pay only when you interview for real.",
   openGraph: {
-    title: "InterviewAssist — Real-Time AI Coaching for Live Technical Interviews",
+    title: "InterviewAssist — Real-Time AI Help During Your Technical Interview",
     description:
-      "InterviewAssist listens to your interviewer and gives you precise coding guidance in under 5 seconds. Undetectable. Interview-tuned. Built for developers who are ready to level up their salary.",
+      "InterviewAssist listens to your interviewer and gives you precise coding answers in under 5 seconds. Undetectable. Interview-tuned.",
     type: "website",
   },
 };
