@@ -2,25 +2,23 @@
 
 import { useState } from "react";
 
-type Status = "idle" | "loading" | "success" | "error";
-
 export default function WaitlistForm() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<Status>("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email || status === "loading") return;
+    if (!email.trim()) return;
 
     setStatus("loading");
-    setErrorMessage("");
+    setErrorMsg("");
 
     try {
       const res = await fetch("https://boringcombinator.com/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug: "interviewassit", email }),
+        body: JSON.stringify({ slug: "interviewassit", email: email.trim() }),
       });
 
       if (!res.ok) {
@@ -31,81 +29,79 @@ export default function WaitlistForm() {
       setEmail("");
     } catch (err) {
       setStatus("error");
-      setErrorMessage(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong. Please try again."
+      setErrorMsg(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
       );
     }
   }
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center gap-4 py-8 px-6 bg-[#1A1A2E] border border-[#E94560]/30 rounded-2xl">
-        <div className="w-14 h-14 rounded-full bg-[#E94560]/15 border border-[#E94560]/30 flex items-center justify-center text-2xl">
-          🎯
+      <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-6 py-8 text-center">
+        <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-4">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#10b981"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
         </div>
-        <h3 className="text-xl font-bold text-[#F0EFF4]">You're in.</h3>
-        <p className="text-[#F0EFF4]/60 text-sm text-center leading-relaxed max-w-xs">
-          We'll notify you the moment early access opens. Get ready — that $40K
-          raise isn't going to negotiate itself.
+        <h3 className="text-white font-black text-xl mb-2">You&apos;re on the list.</h3>
+        <p className="text-white/60 text-sm">
+          We&apos;ll reach out when early access is ready. Practice sessions are free from day one.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
+    <form onSubmit={handleSubmit} className="w-full">
       <div className="flex flex-col sm:flex-row gap-3">
         <input
           type="email"
           required
-          placeholder="your@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          placeholder="your@email.com"
           disabled={status === "loading"}
-          className="flex-1 bg-[#1A1A2E] border border-white/10 focus:border-[#E94560]/60 text-[#F0EFF4] placeholder-[#F0EFF4]/30 px-5 py-4 rounded-xl outline-none transition-colors text-sm disabled:opacity-60 focus:ring-2 focus:ring-[#E94560]/20"
+          className="flex-1 rounded-full px-5 py-4 bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-[#C84B31] focus:bg-white/15 transition-all text-sm disabled:opacity-60"
         />
         <button
           type="submit"
-          disabled={status === "loading" || !email}
-          className="bg-[#E94560] hover:bg-[#c73550] disabled:bg-[#E94560]/50 disabled:cursor-not-allowed text-white font-bold px-7 py-4 rounded-xl transition-all hover:scale-105 disabled:hover:scale-100 text-sm whitespace-nowrap shadow-lg shadow-[#E94560]/20"
+          disabled={status === "loading" || !email.trim()}
+          className="shrink-0 rounded-full px-7 py-4 bg-[#C84B31] text-white font-bold text-sm hover:bg-[#a83a24] transition-colors disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-[#C84B31]/30 whitespace-nowrap"
         >
           {status === "loading" ? (
             <span className="flex items-center gap-2">
               <svg
-                className="animate-spin w-4 h-4"
-                fill="none"
+                className="animate-spin"
+                width="16"
+                height="16"
                 viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
               >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v8H4z"
-                />
+                <path d="M21 12a9 9 0 1 1-6.219-8.56" />
               </svg>
-              Joining…
+              Joining...
             </span>
           ) : (
             "Get Early Access"
           )}
         </button>
       </div>
-
       {status === "error" && (
-        <p className="mt-3 text-sm text-[#E94560] text-center">{errorMessage}</p>
+        <p className="mt-3 text-sm text-red-400 text-center">{errorMsg}</p>
       )}
-
-      <p className="mt-4 text-xs text-[#F0EFF4]/30 text-center">
-        No spam. No credit card. Just early access when we launch.
+      <p className="mt-4 text-xs text-white/30 text-center">
+        No spam. No credit card. Unsubscribe anytime.
       </p>
     </form>
   );

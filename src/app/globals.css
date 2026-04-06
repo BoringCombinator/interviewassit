@@ -2,9 +2,9 @@
 
 :root {
   --color-primary: #1A1A2E;
-  --color-accent: #E94560;
-  --color-bg: #0F0F1A;
-  --color-text: #F0EFF4;
+  --color-accent: #C84B31;
+  --color-bg: #F5F0EB;
+  --color-text: #1A1A2E;
 }
 
 *,
@@ -31,23 +31,21 @@ body {
     Roboto,
     "Helvetica Neue",
     Arial,
+    "Noto Sans",
     sans-serif;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
 }
 
 ::selection {
-  background-color: #E94560;
+  background-color: #C84B31;
   color: #ffffff;
 }
 
-:focus-visible {
-  outline: 2px solid #E94560;
-  outline-offset: 2px;
-}
-
-/* Smooth scrolling for anchor links */
-html:focus-within {
-  scroll-behavior: smooth;
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }

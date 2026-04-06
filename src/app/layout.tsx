@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "InterviewAssist — Real-Time AI Help for Technical Interviews",
+  title: "InterviewAssist — Real-Time AI Coaching for Live Technical Interviews",
   description:
-    "Get precise, real-time coding guidance during your technical interview — in under 5 seconds, undetected. Built for developers who are ready to level up their salary, not just their skills.",
+    "InterviewAssist listens to your interviewer and gives you precise coding guidance in under 5 seconds. Undetectable. Interview-tuned. Built for developers who are ready to level up their salary.",
   openGraph: {
-    title: "InterviewAssist — Real-Time AI Help for Technical Interviews",
+    title: "InterviewAssist — Real-Time AI Coaching for Live Technical Interviews",
     description:
-      "Get precise, real-time coding guidance during your technical interview — in under 5 seconds, undetected.",
+      "InterviewAssist listens to your interviewer and gives you precise coding guidance in under 5 seconds. Undetectable. Interview-tuned. Built for developers who are ready to level up their salary.",
     type: "website",
   },
 };
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }
